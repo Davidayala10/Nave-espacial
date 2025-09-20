@@ -5,6 +5,10 @@ import java.awt.*;
 
 public class Simupanel extends JPanel{
     private final int W, H;
+    //Actualizacion de panel
+    private javax.swing.Timer timer;
+    private long lastNano;
+    private double xTest = 20;
 
     public Simupanel(int w, int h){
         this.W = w;
@@ -12,6 +16,19 @@ public class Simupanel extends JPanel{
         setPreferredSize(new Dimension(W, H));
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
+        lastNano = System.nanoTime();
+        timer = new javax.swing.Timer(16, e -> tick());
+        timer.start();
+    }
+
+    private void tick(){
+        long now = System.nanoTime();
+        double delta = (now - lastNano) / 1e9;
+        lastNano = now;
+        delta = Math.min(delta, 0.05);
+        xTest += 100 * delta;
+        if(xTest > W) xTest = 0;
+        repaint();
     }
 
     @Override
@@ -21,5 +38,6 @@ public class Simupanel extends JPanel{
         Graphics2D g2 = (Graphics2D) g;
         g2.setColor(Color.WHITE);
         g2.drawString("Simulación de Asteroides", 10, 20);
+        g2.fillOval((int)xTest, 100, 50, 50);
     }
 }
