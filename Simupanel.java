@@ -9,11 +9,15 @@ public class Simupanel extends JPanel{
     private javax.swing.Timer timer;
     private long lastNano;
     private double xTest = 20;
+    private Nave nave;
 
     public Simupanel(int w, int h){
         this.W = w;
         this.H = h;
         setPreferredSize(new Dimension(W, H));
+        double iniy = 80 + new java.util.Random().nextDouble() * (H - 160);
+        double inix = 60;
+        nave = new Nave(inix, iniy);
         setBackground(Color.BLACK);
         setDoubleBuffered(true);
         lastNano = System.nanoTime();
@@ -39,5 +43,6 @@ public class Simupanel extends JPanel{
         g2.setColor(Color.WHITE);
         g2.drawString("Simulación de Asteroides", 10, 20);
         g2.fillOval((int)xTest, 100, 50, 50);
+        nave.draw(g2);
     }
 }
