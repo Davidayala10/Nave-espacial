@@ -6,6 +6,10 @@ import java.awt.geom.AffineTransform;
 
 public class Nave {
     private double x, y; 
+    private double v=60; 
+    private double a=120;
+    private final double V_MAX=320.0;
+    private final double A_MAX=20.0;
     private final Polygon shape; 
     private final double R=16;
 
@@ -17,6 +21,13 @@ public class Nave {
         t.addPoint(-18, -12);
         t.addPoint(-18, 12);
         this.shape = t;
+    }
+
+    public void MRUA(double delta) {
+        x += v * delta + 0.5 * a * delta * delta;
+        v += a * delta;
+        if (v > V_MAX) v = V_MAX;
+        if (v < 0) v = 0;
     }
 
     public void draw(Graphics2D g2) {

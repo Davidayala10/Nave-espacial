@@ -32,6 +32,7 @@ public class Simupanel extends JPanel{
         delta = Math.min(delta, 0.05);
         xTest += 100 * delta;
         if(xTest > W) xTest = 0;
+        nave.MRUA(delta);
         repaint();
     }
 
@@ -40,7 +41,7 @@ public class Simupanel extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
-        g2.setColor(Color.WHITE);
+        g2.setColor(Color.BLUE);
         g2.drawString("Simulación de Asteroides", 10, 20);
         g2.fillOval((int)xTest, 100, 50, 50);
         nave.draw(g2);
