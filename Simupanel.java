@@ -78,7 +78,7 @@ public class Simupanel extends JPanel{
             System.out.println("¡Éxito! Avance: 100%");
             javax.swing.JOptionPane.showMessageDialog(this,"¡Misión cumplida!\nAvance: 100%","Completado",javax.swing.JOptionPane.INFORMATION_MESSAGE);
             return;
-}
+        }
 
 
 
