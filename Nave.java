@@ -49,6 +49,7 @@ public class Nave {
     public double getR() {
         return R;
     }
+   public double RadioDeColision() { return R; }
 
 }
 
