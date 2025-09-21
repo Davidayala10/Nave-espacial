@@ -53,7 +53,10 @@ public class Simupanel extends JPanel{
         delta = Math.min(delta, 0.05);
         //xTest += 100 * delta;
         //if(xTest > W) xTest = 0;
-        nave.MRUA(delta);
+        //nave.MRUA(delta);
+
+        double Velocimetro = Choque() ? 60.0 : 300.0;
+        nave.ActualizarVelocidad(delta, Velocimetro);
         
         for(Asteroide a : asteroides){
             if (colicion(nave.getX(), nave.getY(), nave.RadioDeColision(), a.x, a.y, a.radio)) {
@@ -110,5 +113,29 @@ public class Simupanel extends JPanel{
         double avance = (W + nave.RadioDeColision()) - inix;
         double porcentaje = 100.0 * (nave.getX() - inix) / avance;
         return Math.max(0, Math.min(100, porcentaje));
+    }
+
+    private boolean Choque(){
+        double futuro = 2.0;
+        double anticipa = 0.2;
+        double seguridad = 8.0;
+
+        for(double t = anticipa; t<= futuro; t += anticipa ){
+            double naveFutura = nave.getX() + nave.getV() * t;
+            if (naveFutura > W) break;
+
+            for (Asteroide a : asteroides){
+                double futuroAx = a.x + a.vx * t;
+                double futuroAy = a.y + a.vy * t;
+                double dx = naveFutura - futuroAx;
+                double dy = nave.getY() - futuroAx;
+                double rr = nave.RadioDeColision() + a.radio + seguridad;
+
+                if (dx * dx + dy * dy <= rr * rr){
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 }

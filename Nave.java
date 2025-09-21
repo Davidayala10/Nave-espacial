@@ -9,7 +9,7 @@ public class Nave {
     private double v=60; 
     private double a=120;
     private final double V_MAX=320.0;
-    private final double A_MAX=20.0;
+    private final double V_MIN=20.0;
     private final Polygon shape; 
     private final double R=16;
 
@@ -40,6 +40,28 @@ public class Nave {
         g2.setTransform(old);
     }
 
+    public void ActualizarVelocidad(double delta, double Velocimetro){
+        double V_MAX = 320;
+        double V_MIN = 20;
+        double A_Max = 220;
+
+        Velocimetro = Math.max(V_MIN, Math.min(V_MAX, Velocimetro));
+        
+        if (v<Velocimetro -1){
+            a=A_Max;
+        } else if (v > Velocimetro + 1) {
+            a=-A_Max;
+        }else{
+            a=0;
+        }
+
+        x += v*delta+0.5*a*delta*delta;
+        v += a*delta;
+
+        if (v>V_MAX) v = V_MAX;
+        if (v<V_MIN) v = V_MIN;
+    }
+
     public double getX() {
         return x;
     }
@@ -50,6 +72,8 @@ public class Nave {
         return R;
     }
    public double RadioDeColision() { return R; }
+
+   public double getV() { return v; }
 
 }
 
