@@ -7,6 +7,9 @@ public class Simupanel extends JPanel{
     private final int W, H;
     private final double inix;
     private final double iniy;
+    private static final double futuro = 2.0;
+    private static final double anticipa = 0.2;
+    private static final double seguridad = 8.0;
     //Actualizacion de panel
     private javax.swing.Timer timer;
     private long lastNano;
@@ -15,7 +18,7 @@ public class Simupanel extends JPanel{
     private java.util.List<Asteroide> asteroides = new java.util.ArrayList<>();
     private java.util.Random rand = new java.util.Random();
 
-    public Simupanel(int w, int h){
+    public Simupanel(int w, int h, int nAsteroides){
         this.W = w;
         this.H = h;
         setPreferredSize(new Dimension(W, H));
@@ -23,7 +26,7 @@ public class Simupanel extends JPanel{
         this.inix = 60;
         nave = new Nave(inix, iniy);
 
-        for (int i = 0; i < 20; i++){
+        for (int i = 0; i < nAsteroides; i++){
             asteroides.add(randomAsteroide());
         }
 
@@ -116,9 +119,6 @@ public class Simupanel extends JPanel{
     }
 
     private boolean Choque(){
-        double futuro = 2.0;
-        double anticipa = 0.2;
-        double seguridad = 8.0;
 
         for(double t = anticipa; t<= futuro; t += anticipa ){
             double naveFutura = nave.getX() + nave.getV() * t;
@@ -128,7 +128,7 @@ public class Simupanel extends JPanel{
                 double futuroAx = a.x + a.vx * t;
                 double futuroAy = a.y + a.vy * t;
                 double dx = naveFutura - futuroAx;
-                double dy = nave.getY() - futuroAx;
+                double dy = nave.getY() - futuroAy;
                 double rr = nave.RadioDeColision() + a.radio + seguridad;
 
                 if (dx * dx + dy * dy <= rr * rr){

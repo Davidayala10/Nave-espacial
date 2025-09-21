@@ -68,12 +68,10 @@ public class Nave {
     public double getY() {
         return y;
     }
-    public double getR() {
-        return R;
-    }
-   public double RadioDeColision() { return R; }
 
-   public double getV() { return v; }
+    public double RadioDeColision() { return R; }
+
+    public double getV() { return v; }
 
 }
 
